@@ -2,12 +2,21 @@
 #include <adder.h>
 #include <GLFW/glfw3.h>
 
+#include <OLASConfig.h>
+
 float add(float a, float b);
 
-int main(){
+int main(int argc, char* argv[]){
 
     GLFWwindow* window;
     int width, height;
+
+    std :: cout << argv[0] 
+                << "Verion : "
+                << OLAS_VERSION_MAJOR
+                << "."
+                << OLAS_VERSION_MINOR
+                << std::endl;
 
     if( !glfwInit() )
     {
