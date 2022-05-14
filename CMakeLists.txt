@@ -3,6 +3,34 @@ cmake_minimum_required(VERSION 3.13.4)
 # name and version of our project
 project(OLAS VERSION 1.0)
 
+#  find library
+find_library(myglew glew NAMES glew2 GLEW GLEW2 DOC "glew library")
+if(${myglew} STREQUAL myglew-NOTFOUND)
+# if(NOT ${myglew})
+    message(FATAL_ERROR "no glew, sad day")
+else()
+    message(STATUS "glew found! as ${myglew}")
+endif()
+#
+find_library(myglu glu NAMES GLU DOC "glu library")
+if(${myglu} STREQUAL myglu-NOTFOUND)
+# if(NOT ${myglu})
+    message(FATAL_ERROR "no glu, sad day")
+else()
+    message(STATUS "glu found! as ${myglu}")
+endif()
+#
+find_library(mygl gl NAMES GL DOC "gl library")
+if(${mygl} STREQUAL mygl-NOTFOUND)
+# if(NOT ${mygl})
+    message(FATAL_ERROR "no gl, sad day")
+else()
+    message(STATUS "gl found! as ${mygl}")
+endif()
+
+
+
+
 configure_file(OLASConfig.h.in OLASConfig.h)
 
 add_executable(${PROJECT_NAME} main.cpp)
@@ -85,6 +113,9 @@ target_link_libraries(
     ${PROJECT_NAME} 
     glfw
     ${EXTRA_LINKS}
+    ${myglew}
+    ${myglu}
+    ${mygl}
 )
 
 
