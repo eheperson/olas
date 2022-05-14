@@ -20,12 +20,12 @@ int main(int argc, char* argv[]){
     GLFWwindow* window;
     int width, height;
 
-    std :: cout << argv[0] 
-                << "Version : "
-                << OLAS_VERSION_MAJOR
-                << "."
-                << OLAS_VERSION_MINOR
-                << std::endl;
+    std :: cout << argv[0];
+    std :: cout << "Version : ";
+    std :: cout << OLAS_VERSION_MAJOR;
+    std :: cout << ".";
+    std :: cout << OLAS_VERSION_MINOR;
+    std :: cout << std::endl;
 
     if( !glfwInit() )
     {

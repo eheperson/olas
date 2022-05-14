@@ -86,3 +86,36 @@ target_link_libraries(
     glfw
     ${EXTRA_LINKS}
 )
+
+
+# installing 
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)
+install(FILES "${PROJECT_BINARY_DIR}/OLASConfig.h" DESTINATION include)
+
+# Packing
+
+# Options for packing
+set(PACK_PACKAGE_VENDOR "eheperson")
+set(CPACK_SYSTEM_NAME "enivicivokki")
+set(PACKAGE_DIR "${CMAKE_SOURCE_DIR}/out/package")
+set(CPACK_PACKAGE_DIRECTORY "${PACKAGE_DIR}")
+#
+# to distribute our project to other people 
+# This module will include any runtime libraries that are needed by the project 
+# for the current platform
+include(InstallRequiredSystemLibraries)
+#
+# set some CPack variables to where we have stored the license and 
+# version information for this project.
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "My funky project")
+set(CPACK_PACKAGE_VENDOR ${CPACK_PACKAGE_VENDOR})
+#
+set(CPACK_PACKAGE_DESCRIPTION_FILE "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/License.txt")
+#
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_NAME_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_NAME_VERSION_MINOR}")
+# #
+set(CPACK_SOURCE_GENERATOR "TGZ")
+# #
+include(CPack)

@@ -1,6 +1,4 @@
 #define OLAS_VERSION_MAJOR @OLAS_VERSION_MAJOR@
 #define OLAS_VERSION_MINOR @OLAS_VERSION_MINOR@
 
-// BUG : change this line to :  #define USE_ADDER
-// if -USE_ADDER=OFF
 #cmakedefine USE_ADDER

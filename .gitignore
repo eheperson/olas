@@ -1,6 +1,6 @@
 **/out/build
-
-[Bu][Uu][Ii][Ll][Dd]
+**/out/app
+**/out/package
 
 # Prerequisites
 *.d
