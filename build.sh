@@ -1,4 +1,4 @@
 
 #/bin/bash
 
-cd ./out/build && make && cd .. 
+cd ./out/build && make && cd ../..

@@ -1,18 +1,27 @@
 #include <iostream>
-#include <adder.h>
 #include <GLFW/glfw3.h>
-
 #include <OLASConfig.h>
 
-float add(float a, float b);
+#ifdef USE_ADDER
+    #include <adder.h>
+#endif
+
 
 int main(int argc, char* argv[]){
+
+    std::cout << "Hey, Zeus!\n";
+
+    #ifdef USE_ADDER
+        std::cout << add(22.2f, 22222.2f) << std :: endl;
+    #else
+        std::cout << 33.3f + 33333.3f << std :: endl;
+    #endif
 
     GLFWwindow* window;
     int width, height;
 
     std :: cout << argv[0] 
-                << "Verion : "
+                << "Version : "
                 << OLAS_VERSION_MAJOR
                 << "."
                 << OLAS_VERSION_MINOR
@@ -48,8 +57,5 @@ int main(int argc, char* argv[]){
 
     // Terminate GLFW
     glfwTerminate();
-    std::cout << "Hey, Zeus!\n";
-
-    std::cout << add(34.5f, 34346.6f) << std :: endl;
     return 0;
 }

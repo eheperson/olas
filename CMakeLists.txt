@@ -9,8 +9,39 @@ add_executable(${PROJECT_NAME} main.cpp)
 
 target_include_directories(${PROJECT_NAME} PUBLIC ${PROJECT_BINARY_DIR})
 
-# add another folder with another cmake
-add_subdirectory(Adder)
+# optional library settings
+option(USE_ADDER "A simple library for adding 2 floats." ON)
+
+# adder use logic
+if(USE_ADDER)
+    message(STATUS "External Library adder ")
+    add_definitions(-DUSE_ADDER)
+    add_subdirectory(Adder)
+    #
+    list(APPEND EXTRA_LIB_DIRS "Adder")
+    list(APPEND EXTRA_INCLUDE_DIRS "Adder") # or : "${PROJECT_SOURCE_DIR}/Adder"
+    list(APPEND EXTRA_LINKS adder)
+    # OR (1) ------------------------------------------------------------------
+    # # when including : <Adder/adder.h> >>> <adder.h>
+    # target_include_directories( 
+        # ${PROJECT_NAME} 
+        # PUBLIC Adder
+    # ) 
+    # # # where our libraries is gonna be
+    # # # 'Adder' is pathing from our build folder base
+    # # # base build folder is at after -B "cmake -S . -B ./out /build"
+    # target_link_directories( 
+        # ${PROJECT_NAME} 
+        # PUBLIC Adder
+    # )
+    # link the library to our project
+    # target_link_libraries(
+    #     ${PROJECT_NAME} 
+    #     adder
+    # )
+    # OR (1) ------------------------------------------------------------------
+
+endif()
 
 # --- Download and Update all the submodules
 # git submodule update --init --recursive cmakelists alternative 
@@ -29,33 +60,29 @@ if(GIT_FOUND AND EXISTS "${PROJECT_SOURCE_DIR}/.git")
     endif()
 endif()
 #
-#--------------------------------------------------------------------
 # Check the submodule Module
-if(NOT EXISTS "external/glfw/CMakeLists.txt")
+if(NOT EXISTS "${PROJECT_SOURCE_DIR}/external/glfw/CMakeLists.txt")
     message(FATAL_ERROR "The glfw submodules was not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
+#
 # add the submodule directory
 add_subdirectory(external/glfw)
-
-# when including : <Adder/adder.h> >>> <adder.h>
-target_include_directories(
+#
+target_include_directories( 
     ${PROJECT_NAME} 
-    PUBLIC Adder
-    PUBLIC external/glfw/include()    
+    PUBLIC external/glfw/include
+    ${EXTRA_INCLUDE_DIRS}
 ) 
-
-# where our libraries is gonna be
-# 'Adder' is pathing from our build folder base
-# base build folder is at after -B "cmake -S . -B ./out/build"
-target_link_directories(
+# #
+target_link_directories( 
     ${PROJECT_NAME} 
-    PRIVATE Adder
-    PRIVATE external/glfw/src
+    PUBLIC external/glfw/src
+    ${EXTRA_LIB_DIR}
 )
-
+#
 # link the library to our project
 target_link_libraries(
     ${PROJECT_NAME} 
-    adder
     glfw
+    ${EXTRA_LINKS}
 )
